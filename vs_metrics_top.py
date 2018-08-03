@@ -63,11 +63,11 @@ def top_vips(param, m_id):
         param.pop((max(param, key=param.get)))
 
 def main():
-    parser = argparse.ArgumentParser(description="AVISDK based Script to attach a Datascript to all the VS(s)")
+    parser = argparse.ArgumentParser(description="AVISDK based Script to get a list of VIPs using highest Bandwidth or no of Connections")
     parser.add_argument("-u", "--username", required=False, help="Login username")
     parser.add_argument("-p", "--password", required=True, help="Login password")
     parser.add_argument("-c", "--controller", required=True, help="Controller IP address")
-    parser.add_argument("-t", "--tenant", required=True, help="Tenant Name")
+    parser.add_argument("-t", "--tenant", required=False, help="Tenant Name")
     parser.add_argument("-a", "--api_version", required=True, help="API Version")
     parser.add_argument("-l", "--limits", required=True, help="No of Samples to be taken")
     parser.add_argument("-s", "--step", required=True, help="Take samples after every n seconds - possible values 300,3600,86400")
