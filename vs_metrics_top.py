@@ -54,12 +54,25 @@ def top_vips(param, m_id):
     else:
         a = 10
     print '\nTop', a, 'VIPs:\n'
+    print '{0: <45}'.format("VIP Name"), '{0: <12}'.format("Value"), '{0: <10}'.format("SE List")
     for i in range(a):
         key,value = max(param.items(), key = lambda p: p[1])
+        resp2 = api.get('virtualservice/?name=%s' %key)
+        try:
+            se_list = []
+            uuid = resp2.json()['results'][0]['vip_runtime'][0]['se_list']
+            #print uuid
+            for i in uuid:
+                se_uuid = i['se_ref'].split('/')[-1]
+                #print se_uuid
+                resp3 = api.get('serviceengine/%s' %se_uuid)
+                se_list.append(resp3.json()['name'].encode('ascii','ignore'))
+        except KeyError:
+            se_list.append("No SE attached to VIP")
         if m_id == 'l4_client.avg_complete_conns':
-            print '{0: <35}'.format(key), '{0: >35}'.format(round(value,2)), 'Avg CPS'
+            print '{0: <45}'.format(key), '{0: <10}'.format(str((round(value,2)))+' Avg CPS'), str(se_list)[1:-1]
         else:
-            print '{0: <35}'.format(key), '{0: >35}'.format(round(value/(1000*1000),2)), 'Mbps'
+            print '{0: <45}'.format(key), '{0: <10}'.format(str((round(value/(1000*1000),2)))+' Mbps'), str(se_list)[1:-1]
         param.pop((max(param, key=param.get)))
 
 def main():
