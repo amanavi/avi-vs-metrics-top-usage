@@ -35,17 +35,12 @@ def metrics(vs_uuid, m_id, tenant, step, limits):
             'step': step,
             'limit': limits,
             'entity_uuid': vs_uuid
-            #'start': start
         }
     api_utils = ApiUtils(api)
     rsp = api_utils.get_metrics_collection(metric_requests=[mq])
-    #print json.dumps(rsp, indent=2)
     total_value = 0
     for data in rsp['series'][vs_uuid][0]['data']:
-        #print data['value']
         total_value += data['value']
-    #print rsp['series'][vs_uuid][0]['header']['statistics']['max_ts']
-    #print rsp['series'][vs_uuid][0]['header']['statistics']['min_ts']
     return total_value/limits
 
 def top_vips(param, m_id):
@@ -61,10 +56,8 @@ def top_vips(param, m_id):
         try:
             se_list = []
             uuid = resp2.json()['results'][0]['vip_runtime'][0]['se_list']
-            #print uuid
             for i in uuid:
                 se_uuid = i['se_ref'].split('/')[-1]
-                #print se_uuid
                 resp3 = api.get('serviceengine/%s' %se_uuid)
                 se_list.append(resp3.json()['name'].encode('ascii','ignore'))
         except KeyError:
@@ -109,9 +102,8 @@ def main():
     api = ApiSession.get_session(controller, user, password, tenant=tenant, api_version=api_version)
 
     vs_list = {}
-    resp = api.get('virtualservice')
+    resp = api.get('virtualservice?page_size=3000')
     for vs in resp.json()['results']:
-        #print(vs['name'], vs['uuid'])
         vs_list.update({vs['name']:vs['uuid']})
 
     dic = {}
