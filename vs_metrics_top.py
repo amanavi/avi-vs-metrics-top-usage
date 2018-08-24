@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Created on August 24, 2018
+# Created on August 3, 2018
 # @author: aman@avinetworks.com
 #
 # AVI-SDK based Script to get a list of VIPs using highest Bandwidth or no of Connections
@@ -10,8 +10,8 @@
 #
 # Usage:-
 #  python vs_metrics_top.py -c <controller-ip> -u <user-name> -to <token> -t <tenant> -a <api-version> -l <limits> -s <step> -pm <parameter>
-#  python vs_metrics_top.py -c '10.10.30.63' -u 'admin' -to '777e5fb153' -t 'admin' -a '17.2.10' -l '10' -s '300' -pm 'bw'
-#  python vs_metrics_top.py -c '10.10.30.63' -u 'admin' -to '777e5fb153' -t 'admin' -a '17.2.10' -l '10' -s '300' -pm 'conn'
+#  python vs_metrics_top.py -c '10.10.30.63' -u 'admin' -to '777e5...fb153' -t 'admin' -a '17.2.10' -l '10' -s '300' -pm 'bw'
+#  python vs_metrics_top.py -c '10.10.30.63' -u 'admin' -to '777e5...fb153' -t 'admin' -a '17.2.10' -l '10' -s '300' -pm 'conn'
 #
 # You can generate a token in AVI Vantage using 'Generate Token' option.
 #
